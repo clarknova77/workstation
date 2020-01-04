@@ -8,3 +8,5 @@
       - tilix
       - vim-enhanced
       - cpuid
+      - tlp
+      - tlp-rdw
