@@ -1,0 +1,62 @@
+---
+- hosts: x1
+  become: yes
+  tasks: 
+
+    - name: Copy rpmfusion repo packages to target
+      copy:
+        src: /home/ansible/rpm/rpmfusion-nonfree-release-31.noarch.rpm
+        dest: /tmp/rpmfusion-nonfree-release-31.noarch.rpm
+        owner: root
+        group: root
+        mode: '0644'
+      copy:
+        src: /home/ansible/rpm/rpmfusion-free-release-31.noarch.rpm
+        dest: /tmp/rpmfusion-free-release-31.noarch.rpm
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    - name: install the rpmfusion repo packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - '/tmp/rpmfusion-nonfree-release-31.noarch.rpm'
+        - '/tmp/rpmfusion-free-release-31.noarch.rpm'
+
+    - name: Install essential packages
+      dnf: 
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - tilix
+        - gnote
+
+    - name: :Install key for MS Visual Studio Code
+      rpm_key:
+        state: present
+        key: https://packages.microsoft.com/keys/microsoft.asc
+
+    - name: copy MS Code repo to remote system
+      copy:
+        src: /home/ansible/files/vscode.repo
+        dest: /etc/yum.repos.d/vscode.repo
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: update yum cache
+      yum:
+        update_cache: yes
+
+    - name: install the MS Code package
+      dnf:
+        name: code
+        state: present
+
+      
+
+
+

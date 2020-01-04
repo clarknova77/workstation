@@ -1,0 +1,18 @@
+---
+- hosts: x1 
+  become: yes
+  tasks:
+    - name: Ensure root logins are prohibited
+      replace:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin yes'
+        replace: 'PermitRootLogin no'
+        backup: yes
+      register: parameter
+
+    - name: restart sshd if configuration has changed
+      service: 
+        name: sshd
+        state: restarted
+        enabled: yes
+      when: parameter.changed    

@@ -1,0 +1,30 @@
+---
+
+- hosts: x1
+  become: yes
+  tasks: 
+
+    - name: update dnf cache
+      dnf:
+        update_cache: yes
+
+    - name: install Fedora-workstation repo
+      dnf:
+        name: fedora-workstation-repositories
+        state: present
+
+    - name: enable google chrome repo
+      shell: dnf config-manager --set-enabled google-chrome
+      args:    
+        warn: false
+
+    - name: Install essential packages
+      dnf: 
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - tilix
+        - gnote
+        - vim-enhanced
+        - ansible
+        - google-chrome-stable

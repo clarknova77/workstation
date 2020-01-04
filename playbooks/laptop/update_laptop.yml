@@ -1,0 +1,9 @@
+---
+- hosts: x1 
+  become: yes
+  tasks: 
+    - name: update yum cache
+      yum: update_cache=yes
+
+    - name: update all packages 
+      yum: name=* state=latest
