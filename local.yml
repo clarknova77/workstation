@@ -1,9 +1,8 @@
 - hosts: localhost
   become: true
-  tasks:
-  - name: Install packages
-    dnf: name={{item}}
-    with_items:
+
+  vars:
+    packages:
       - htop
       - tilix
       - vim-enhanced
@@ -13,3 +12,10 @@
       - neofetch
       - gnome-tweak-tool
       - transmission
+
+
+  tasks:
+  - name: Install packages
+    dnf: 
+      pkg: "{{ packages }}"
+      state: present
