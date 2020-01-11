@@ -15,6 +15,13 @@
 
 
   tasks:
+
+  - name: enable google chrome repo
+    shell: dnf config-manager --set-enabled google-chrome
+    args:    
+      warn: false
+
+
   - name: Install packages
     dnf: 
       pkg: "{{ packages }}"
