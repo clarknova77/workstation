@@ -12,7 +12,8 @@
       - neofetch
       - gnome-tweak-tool
       - transmission
-
+      - alsamixergui  # needed for thinkpad audio to work correctly
+      - python3-tools # needed for python-idle
 
   tasks:
 
