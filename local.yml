@@ -27,3 +27,9 @@
     dnf: 
       pkg: "{{ packages }}"
       state: present
+
+
+  - name: Install key for MS VS Code
+    rpm_key:
+      state: present
+      key: https://packages.microsoft.com/keys/microsoft.asc
