@@ -33,3 +33,11 @@
     rpm_key:
       state: present
       key: https://packages.microsoft.com/keys/microsoft.asc
+
+  - name: Create repository for VS Code
+    copy:
+      src: /home/simon/git/files/vscode.repo
+      dest: /etc/yum.repos.d/vscode.repo
+      owner: root
+      group: root
+      mode: '0644'
